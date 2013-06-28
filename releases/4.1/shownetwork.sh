@@ -13,7 +13,7 @@ setup()
 	setcolors	
 	DEFSPACE="5"
 	MINSPACE="$DEFSPACE"
-	MODE="mixed"
+	MODE="name"
 	VERSION="0.6"
 }
 
@@ -44,7 +44,7 @@ getnetinfo()
 {
 
     # Setting title array depending on $MODE
-	TITLES=( 'Name-label' 'MTU' 'Bridge' 'Port Security' 'Tags' )
+	TITLES=( 'Network' 'MTU' 'Bridge' 'Port Security' 'Tags' )
 	getcmddata network-list uuid="$NETWORKUUID" params="uuid,name-label,bridge,MTU,default-locking-mode,tags,VIF-uuids,PIF-uuids"
 
 	# Creating COLLONGEST array 
@@ -77,9 +77,9 @@ getnetvifinfo()
 	# Setting title array depending on $MODE
     case "$MODE" in 
         "uuid")
-            TITLES=( 'UUID' 'VM-UUID' 'Device' 'Locking-mode' 'Attached' 'MAC' ) ;;
+            TITLES=( 'UUID' 'VM-UUID' 'Dev' 'Locking-mode' 'Attached' 'MAC' ) ;;
 		"name")
-            TITLES=( 'UUID' 'VM-NAME-LABEL' 'Device' 'Locking-mode' 'Attached' 'MAC' ) ;;
+            TITLES=( 'UUID' 'VM-NAME-LABEL' 'Dev' 'Mac' 'Locking-mode' 'Attached' ) ;;
         "mixed")
             TITLES=( 'UUID' 'VM-NAME-LABEL' 'VM-UUID' 'Device' 'Locking-mode' 'Attached' 'MAC' ) ;;
     esac
@@ -98,9 +98,9 @@ getnetvifinfo()
 			COLLONGEST[0]=$(getcolwidth "${TITLES[0]}" "${vif_uuid[@]}")
 			COLLONGEST[1]=$(getcolwidth "${TITLES[1]}" "${vif_vm_name_label[@]}")
 			COLLONGEST[2]=$(getcolwidth "${TITLES[2]}" "${vif_device[@]}")
-			COLLONGEST[3]=$(getcolwidth "${TITLES[3]}" "${vif_locking_mode[@]}")
-			COLLONGEST[4]=$(getcolwidth "${TITLES[4]}" "${vif_currently_attached[@]}")
-			COLLONGEST[5]=$(getcolwidth "${TITLES[5]}" "${vif_MAC[@]}")
+			COLLONGEST[3]=$(getcolwidth "${TITLES[3]}" "${vif_MAC[@]}")
+			COLLONGEST[4]=$(getcolwidth "${TITLES[4]}" "${vif_locking_mode[@]}")
+			COLLONGEST[5]=$(getcolwidth "${TITLES[5]}" "${vif_currently_attached[@]}")
 			;;
         "mixed")
             COLLONGEST[0]=$(getcolwidth "${TITLES[0]}" "${vif_uuid[@]}")
@@ -129,9 +129,9 @@ getnetvifinfo()
 				cecho "${vif_uuid[$i]}" blue 			    ; printspaces "${COLLONGEST[0]}" "${#vif_uuid[$i]}" 
 				cecho "${vif_vm_name_label[$i]}" blue 		; printspaces "${COLLONGEST[1]}" "${#vif_vm_name_label[$i]}"
 				cecho "${vif_device[$i]}" blue 		        ; printspaces "${COLLONGEST[2]}" "${#vif_device[$i]}"
-				cecho "${vif_locking_mode[$i]}" blue 	    ; printspaces "${COLLONGEST[3]}" "${#vif_locking_mode[$i]}"
-				cecho "${vif_currently_attached[$i]}" blue 	; printspaces "${COLLONGEST[4]}" "${#vif_ currently_attached[$i]}"
-				cecho "${vif_MAC[$i]}" blue 			    ; printspaces "${COLLONGEST[5]}" "${#vif_MAC[$i]}"
+				cecho "${vif_MAC[$i]}" blue 			    ; printspaces "${COLLONGEST[3]}" "${#vif_MAC[$i]}"
+				cecho "${vif_locking_mode[$i]}" blue 	    ; printspaces "${COLLONGEST[4]}" "${#vif_locking_mode[$i]}"
+				cecho "${vif_currently_attached[$i]}" blue 	; printspaces "${COLLONGEST[5]}" "${#vif_currently_attached[$i]}"
 				echo "" ;;
             "mixed")		
 				cecho "${vif_uuid[$i]}" blue 			    ; printspaces "${COLLONGEST[0]}" "${#vif_uuid[$i]}" 
@@ -156,9 +156,9 @@ getnetpifinfo()
 	
 	# Setting title array depending on $MODE
 	case "$MODE" in 
-		"uuid") TITLES=( 'UUID' 'Host-UUID' 'Device' 'MAC' 'VLAN' 'IP-mode' 'IP' 'netmask' 'gateway' ) ;;
-		"name") TITLES=( 'UUID' 'Hostname' 'Device' 'MAC' 'VLAN' 'IP-mode' 'IP' 'netmask' 'gateway' ) ;;
-		"mixed") TITLES=( 'UUID' 'Host-UUID' 'Device' 'MAC' 'VLAN' 'IP-mode' 'IP' 'netmask' 'gateway' ) ;;
+		"uuid") TITLES=( 'UUID' 'Host-UUID' 'Dev' 'MAC' 'VLAN' 'IP-mode' 'IP' 'netmask' 'gateway' ) ;;
+		"name") TITLES=( 'UUID' 'Hostname' 'Dev' 'MAC' 'VLAN' 'IP-mode' 'IP' 'netmask' 'gateway' ) ;;
+		"mixed") TITLES=( 'UUID' 'Host-UUID' 'Dev' 'MAC' 'VLAN' 'IP-mode' 'IP' 'netmask' 'gateway' ) ;;
 	esac
 
 	# Creating COLLONGEST array 
